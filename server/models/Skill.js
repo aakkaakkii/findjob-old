@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
     title: {type: String},
 });
 
-mongoose.model('Skill', UserSchema);
+mongoose.model('Skill', Schema);

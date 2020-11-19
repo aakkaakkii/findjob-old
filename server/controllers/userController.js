@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-
 const postUsers = (req, res, next) => {
     let user = new User();
 
     user.username = req.body.username;
+    user.nickname = req.body.nickname;
     user.email = req.body.email;
     user.setPassword(req.body.password);
 

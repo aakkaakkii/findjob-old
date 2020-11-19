@@ -3,8 +3,9 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 
-const UserSchema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
     username: {type: String, unique: true, index: true},
+    nickname: {type: String},
     email: {type: String, unique: true, match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
     type: {
         type: String,
@@ -14,19 +15,19 @@ const UserSchema = new mongoose.Schema({
     salt: String
 });
 
-UserSchema.methods.setPassword = function (password) {
+Schema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.password = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
-UserSchema.methods.toProfileJSON = function () {
+Schema.methods.toProfileJSON = function () {
     return {
         username: this.username,
         email: this.email,
     };
 };
 
-UserSchema.methods.generateJWT = function () {
+Schema.methods.generateJWT = function () {
     let today = new Date();
     let exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -38,7 +39,7 @@ UserSchema.methods.generateJWT = function () {
     }, secret);
 };
 
-UserSchema.methods.toAuthJSON = function () {
+Schema.methods.toAuthJSON = function () {
     return {
         username: this.username,
         email: this.email,
@@ -46,4 +47,4 @@ UserSchema.methods.toAuthJSON = function () {
     };
 };
 
-mongoose.model('User', UserSchema);
+mongoose.model('User', Schema);

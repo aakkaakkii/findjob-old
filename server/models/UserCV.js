@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
     description: {type: String},
+    location: {type: mongoose.Schema.Types.ObjectId, ref: 'Location'},
     mainSkills: [
         {
             skill: {type: mongoose.Schema.Types.ObjectId, ref: "Skill"},
@@ -14,4 +15,4 @@ const UserSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
-mongoose.model('UserCV', UserSchema);
+mongoose.model('UserCV', Schema);

@@ -19,7 +19,21 @@ const postSkill = (req, res, next) => {
     }).catch(next);
 }
 
+const deleteSkill = (req, res, next) => {
+    Skill.findById(req.params.id).then((skill) => {
+        if (!skill) {
+            return res.sendStatus(401);
+        }
+
+        skill.remove().then(() => {
+            return res.sendStatus(204);
+        });
+    }).catch(next)
+}
+
+
 module.exports = {
     loadSkills,
-    postSkill
+    postSkill,
+    deleteSkill
 }

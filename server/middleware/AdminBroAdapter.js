@@ -7,6 +7,8 @@ const User = mongoose.model('User');
 const Vacancy = mongoose.model('Vacancy');
 const UserCV = mongoose.model('UserCV');
 const Skill = mongoose.model('Skill');
+const Category = mongoose.model('Category');
+const Location = mongoose.model('Location');
 
 AdminBro.registerAdapter(AdminBroMongoose)
 
@@ -33,13 +35,12 @@ const resources = [
                 }
             }
         }
-    }, {
-        resource: Vacancy
-    }, {
-        resource: UserCV
-    }, {
-        resource: Skill
-    }
+    },
+    {resource: Vacancy},
+    {resource: UserCV},
+    {resource: Skill},
+    {resource: Category},
+    {resource: Location},
 ];
 
 module.exports = resources;
